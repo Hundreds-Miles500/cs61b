@@ -144,23 +144,4 @@ public class ArrayDeque<T> {
         return items[ptr];
     }
 
-
-
-
-    //test code
-    public static void main(String[] args){
-        ArrayDeque<Integer> a = new ArrayDeque();
-        a.addLast(16);a.addLast(6);a.addLast(17);a.addLast(18);
-        a.removeLast();
-        a.removeFirst();
-        a.addLast(1);a.addLast(2);a.addLast(12);a.addLast(13);a.addLast(31);a.addLast(14);
-        a.addFirst(14);a.addLast(14);a.addLast(14);
-        a.removeFirst();
-        a.removeFirst();
-        a.removeLast();
-        a.removeLast();
-        int b = a.get(0);
-        int f = a.get(6);
-        a.printDeque();
-    }
 }

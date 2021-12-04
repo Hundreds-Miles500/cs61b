@@ -103,22 +103,5 @@ public class LinkedListDeque<T> {
         }
         return ptr.item;
     }
-
-
-
-
-
-    //test code
-    public static void main(String[] args){
-        LinkedListDeque<Integer> l = new LinkedListDeque();
-        l.addFirst(2);
-        l.addLast(5);
-        l.addLast(78);
-        l.addLast(007);
-        LinkedListDeque<Integer> h = new LinkedListDeque(l);
-        int y = l.get(2);
-        l.printDeque();
-        l.removeLast();
-        l.printDeque();;
-    }
+    
 }

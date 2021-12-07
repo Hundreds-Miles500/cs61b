@@ -10,7 +10,7 @@ public class ArrayDeque<T> {
         nextFirst = 2;
         nextLast = 3;
     }
-
+    //waiting the completement
     public ArrayDeque(ArrayDeque other) {
         size = other.size;
 
@@ -22,9 +22,13 @@ public class ArrayDeque<T> {
     //helper method
     private void resize(int capacity) {
         T[] a = (T []) new Object[capacity];
-        System.arraycopy(items,0, a, 0,size);
+        System.arraycopy(items,0, a, 0, last() + 1);
+        System.arraycopy(items, front(), a, capacity - (items.length - front()), items.length - front());
+        nextLast = last() + 1;
+        nextFirst = capacity - (items.length - front()) - 1;
         items = a;
     }
+
     //get the front and last of the AList
     private int front() {
         if (nextFirst == items.length - 1){
@@ -43,21 +47,19 @@ public class ArrayDeque<T> {
     public void addFirst(T item){
         if (items.length == size){
             resize(size * 2);
-            nextFirst = items.length - 1;
         }
         items[nextFirst] = item;
         size += 1;
         if (nextFirst == 0){
             nextFirst = items.length - 1;
-        }else {
+        } else {
             nextFirst = nextFirst - 1;
         }
     }
 
-    public void addLast(T item){
+    public void addLast(T item) {
         if (items.length == size){
             resize(size * 2);
-            nextLast = size;
         }
         items[nextLast] = item;
         size += 1;
@@ -82,14 +84,12 @@ public class ArrayDeque<T> {
     public void printDeque(){
         int ptr = front();
         int n = size;
-        while(n != 0){
+        while (n != 0){
             System.out.print(items[ptr] + " ");
             n = n - 1;
             if (ptr == items.length - 1){
                 ptr = 0;
-            }else if (ptr == last()){
-                ptr = 0;
-            }else{
+            } else{
                 ptr += 1;
             }
         }
@@ -105,7 +105,7 @@ public class ArrayDeque<T> {
             nextFirst = nextFirst + 1;
         }
         size = size - 1;
-        if (size/items.length == 0.25 && size >= 8){
+        if (size / items.length == 0.25 && size >= 8){
             resize(size);
         }
         items[ptr] = null;
@@ -131,17 +131,26 @@ public class ArrayDeque<T> {
     public T get(int index){
         int ptr = front();
         int n = index;
-        while(n != 0) {
+        while (n != 0) {
             n = n - 1;
             if (ptr == items.length - 1) {
-                ptr = 0;
-            } else if (ptr == last()) {
                 ptr = 0;
             } else {
                 ptr += 1;
             }
         }
         return items[ptr];
+    }
+
+    public static void main(String args[]) {
+        ArrayDeque<Integer> x = new ArrayDeque();
+        for (int i = 0; i < 8; i ++) {
+            x.addFirst(i);
+            x.addLast(i);
+        }
+        x.printDeque();
+        System.out.println(x.get(4));
+        System.out.println(x.get(8));
     }
 
 }

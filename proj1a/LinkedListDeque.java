@@ -31,6 +31,13 @@ public class LinkedListDeque<T> {
             item = i;
             next = n;
         }
+        //to help getRecursive of DLList
+        public T getRecursive(int index) {
+            if (index == 0) {
+                return item;
+            }
+            return next.getRecursive(index - 1);
+        }
     }
 
     //method
@@ -92,7 +99,7 @@ public class LinkedListDeque<T> {
 
     public T get(int index){
         IntNode ptr = sentinel.next;
-        if (ptr.next == null){
+        if (ptr.item == null){
             return null;
         }
         while (index != 0){
@@ -100,6 +107,13 @@ public class LinkedListDeque<T> {
             index --;
         }
         return ptr.item;
+    }
+
+    public T getRecursive(int index) {
+        if (sentinel.next.item == null){
+            return null;
+        }
+        return sentinel.next.getRecursive(index);
     }
 
 }

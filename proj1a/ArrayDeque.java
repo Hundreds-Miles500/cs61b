@@ -13,7 +13,9 @@ public class ArrayDeque<T> {
     //waiting the completement
     public ArrayDeque(ArrayDeque other) {
         size = other.size;
-
+        items = (T []) new Object[other.items.length];
+        System.arraycopy(other.items,0, items, 0, last() + 1);
+        System.arraycopy(other.items, front(), items, size - (items.length - front()), items.length - front());
         nextFirst = other.nextFirst;
         nextLast = other.nextLast;
 
@@ -142,15 +144,6 @@ public class ArrayDeque<T> {
         return items[ptr];
     }
 
-    public static void main(String args[]) {
-        ArrayDeque<Integer> x = new ArrayDeque();
-        for (int i = 0; i < 8; i ++) {
-            x.addFirst(i);
-            x.addLast(i);
-        }
-        x.printDeque();
-        System.out.println(x.get(4));
-        System.out.println(x.get(8));
-    }
+
 
 }

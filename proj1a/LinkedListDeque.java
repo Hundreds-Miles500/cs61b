@@ -21,7 +21,7 @@ public class LinkedListDeque<T> {
 
 
     //class IntNode
-    public class IntNode{
+    private class IntNode{
         public IntNode prev;
         public T item;
         public IntNode next;
@@ -82,6 +82,7 @@ public class LinkedListDeque<T> {
         ptr.next.prev = sentinel;
         ptr.next = null;
         ptr.prev = null;
+        size = size - 1;
         return ptr.item;
     }
 
@@ -94,6 +95,7 @@ public class LinkedListDeque<T> {
         ptr.prev.next = sentinel;
         ptr.next = null;
         ptr.prev = null;
+        size = size - 1;
         return ptr.item;
     }
 

@@ -55,11 +55,8 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T>  {
             throw new RuntimeException("The Queue is empty");
         }
         int tmp = first;
-        first = first + 1;
+        first = (first + 1) % capacity;
         fillCount = fillCount - 1;
-        if (first == capacity) {
-            first = 0;
-        }
 
         return rb[tmp];
     }
@@ -69,9 +66,6 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T>  {
      */
     public T peek() {
         // TODO: Return the first item. None of your instance variables should change.
-        if (isEmpty()) {
-            throw new RuntimeException("The Queue is empty");
-        }
         return rb[first];
     }
 

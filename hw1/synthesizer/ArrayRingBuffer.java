@@ -101,14 +101,4 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T>  {
         }
     }
 
-    public static void main(String[] args) {
-        ArrayRingBuffer<Double> x = new ArrayRingBuffer<>(169);
-        for (int i = 0; i < x.capacity(); i ++) {
-            double r = Math.random() - 0.5;
-            x.enqueue(r);
-        }
-        x.dequeue();
-        x.enqueue(0.9);
-        x.enqueue(0.8);
-    }
 }

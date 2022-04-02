@@ -7,7 +7,7 @@ public interface BoundedQueue<T> extends Iterable<T> {
     int capacity();
 
     // return number of items currently in the buffer
-    int fillcount();
+    int fillCount();
 
     // add item x to the end
     void enqueue(T x);
@@ -23,12 +23,12 @@ public interface BoundedQueue<T> extends Iterable<T> {
 
     // is the buffer empty?
     default boolean isEmpty(){
-        return fillcount() == 0;
+        return fillCount() == 0;
     }
 
 
     //is the buffer full?
     default boolean isFull() {
-        return capacity() == fillcount();
+        return capacity() == fillCount();
     }
 }

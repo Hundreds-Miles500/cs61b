@@ -1,6 +1,5 @@
 // TODO: Make sure to make this class a part of the synthesizer package
 package synthesizer;
-//package <package name>;
 
 //Make sure this class is public
 public class GuitarString {
@@ -21,9 +20,8 @@ public class GuitarString {
         //       Your buffer should be initially filled with zeros.
         int capacity = (int)Math.round(SR / frequency);
         buffer = new ArrayRingBuffer<>(capacity);
-        for (int i = 0; i < capacity; i ++) {
-            buffer.enqueue(0.00);
-            buffer.dequeue();
+        while(!buffer.isFull()){
+            buffer.enqueue((double)0);
         }
     }
 
@@ -35,6 +33,9 @@ public class GuitarString {
         //       double r = Math.random() - 0.5;
         //
         //       Make sure that your random numbers are different from each other.
+        while (!buffer.isEmpty()){
+            buffer.dequeue();
+        }
         while (!buffer.isFull()) {
             double r = Math.random() - 0.5;
             buffer.enqueue(r);
@@ -61,8 +62,4 @@ public class GuitarString {
         return buffer.peek();
     }
 
-    public static void main(String[] args) {
-        GuitarString x = new GuitarString(10);
-        x.pluck();
-    }
 }

@@ -22,6 +22,7 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T>  {
         //       this.capacity should be set appropriately. Note that the local variable
         //       here shadows the field we inherit from AbstractBoundedQueue, so
         //       you'll need to use this.capacity to set the capacity.
+        this.fillCount = 0;
         this.capacity = capacity;
         this.first = 0;
         this.last = 0;
@@ -35,15 +36,12 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T>  {
      */
     public void enqueue(T x) {
         // TODO: Enqueue the item. Don't forget to increase fillCount and update last.
-        rb[last] = x;
-        last += 1;
-        fillCount += 1;
-        if (last == capacity) {
-            last = 0;
-        }
         if (isFull()) {
             throw new RuntimeException("The Queue is full");
         }
+        rb[last] = x;
+        last = (last + 1) % capacity;
+        fillCount += 1;
     }
 
     /**
@@ -53,15 +51,16 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T>  {
      */
     public T dequeue() {
         // TODO: Dequeue the first item. Don't forget to decrease fillCount and update
+        if (isEmpty()) {
+            throw new RuntimeException("The Queue is empty");
+        }
         int tmp = first;
         first = first + 1;
         fillCount = fillCount - 1;
         if (first == capacity) {
             first = 0;
         }
-        if (isEmpty()) {
-            throw new RuntimeException("The Queue is empty");
-        }
+
         return rb[tmp];
     }
 
@@ -103,13 +102,13 @@ public class ArrayRingBuffer<T> extends AbstractBoundedQueue<T>  {
     }
 
     public static void main(String[] args) {
-        ArrayRingBuffer<Integer> x = new ArrayRingBuffer<>(5);
-        x.enqueue(1);
-        x.enqueue(2);
-        x.enqueue(3);
-        x.enqueue(4);
-        x.enqueue(5);
+        ArrayRingBuffer<Double> x = new ArrayRingBuffer<>(169);
+        for (int i = 0; i < x.capacity(); i ++) {
+            double r = Math.random() - 0.5;
+            x.enqueue(r);
+        }
         x.dequeue();
-        x.enqueue(6);
+        x.enqueue(0.9);
+        x.enqueue(0.8);
     }
 }
